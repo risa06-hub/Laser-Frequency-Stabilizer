@@ -48,7 +48,7 @@ class SelfHeterodyne:
         intensity = np.abs(combined) ** 2 
 
         responsivity= 0.8    # A/W
-        load_resistor= 50.0   # Ω
+        load_resistor= 50.0   # omega
         photovoltage= intensity*responsivity*load_resistor
 
         print(f"Mean photovoltage : {np.mean(photovoltage):.3f} V")
@@ -58,7 +58,7 @@ class SelfHeterodyne:
         if add_noise:
             # Shot noise
             shot_std= 1e-3 * np.sqrt(np.mean(photovoltage))
-            thermal_std= 5e-4   #(Johnson noise at room temp, 50 Ω)
+            thermal_std= 5e-4   #(Johnson noise at room temp, 50 omega)
 
             shot_noise = shot_std * np.random.randn(n_samples)
             thermal_noise = thermal_std * np.random.randn(n_samples)
