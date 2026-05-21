@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 class demodulator:
 
-    def __init__(self,aom_freq=80e6, lowpass_cutoff-10e6):
+    def __init__(self,aom_freq=80e6, lowpass_cutoff=10e6):
         self.aom_freq=aom_freq
         self.omega_aom= 2*np.pi*aom_freq
         self.lowpass_cutoff=lowpass_cutoff
@@ -51,8 +51,8 @@ class demodulator:
         ax1.grid(True,alpha=0.3)
 
         #Adding zoom for first 200 samples
-        if len(t_us)>200:
-            ax1_insert=ax1.insert([0.55,0.55,0.4,0.4])
+            if len(t_us) > 200:
+            ax1_inset = inset_axes(ax1, width="40%", height="40%", loc='upper right') 
             ax1_inset.plot(t_us[:200], photovoltage[:200], 'b-', linewidth=1)
             ax1_inset.set_xlabel('Time (μs)')
             ax1_inset.set_ylabel('Voltage (V)')
@@ -67,6 +67,12 @@ class demodulator:
         ax2.grid(True, alpha=0.3)
 
         #to get the statistic box
+        stats_text = f'RMS: {np.std(phase_error):.3e} rad\nPeak: {np.max(np.abs(phase_error)):.3e} rad'
+        ax2.text(0.05, 0.95, stats_text,transform=ax2.transAxes,verticalalignment='top',bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.8))
+ 
+        plt.tight_layout()
+        plt.show()
+
         stats_text=f'RMS:{np.std(phase_error):.3e}rad\n Peak:{np.max(np.abs(phase_error)):.3e}rad'
         ax2.test(0.05,0.95,stats_text,transform=ax2.transAxes,verticalalignmnet='top',bbox=dict(boxstyle='round', facecolor='wheat',alpha=0.8))
 
